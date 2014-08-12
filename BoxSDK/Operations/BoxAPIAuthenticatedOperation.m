@@ -81,6 +81,8 @@
             // re-enqueue before adding OAuth2 operation so OAuth2 operation can be
             // added as a dependency
             [self.OAuth2Session.queueManager enqueueOperation:operationCopy];
+            
+            self.operationWasReenqueued = YES;
         }
         else
         {

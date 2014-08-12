@@ -46,6 +46,18 @@
 @property (nonatomic, readwrite, assign) NSUInteger timesReenqueued;
 
 /**
+ *
+ * A BOOL to indicate if the operation was automatically reenqueued
+ * because the OAuth2 Token expired.  Reenqueued operations will
+ * not have their failure block called.
+ *
+ * @see handleExpiredOAuth2Token
+ * @see connection:didReceiveResponse:
+ * @see timesReenqueued
+ */
+@property (nonatomic, readwrite, assign) BOOL operationWasReenqueued;
+
+/**
  * Checks for the presense of a WWW-Authenticate header with the error reason
  * `error="invalid_token"` which indicates that the token is invalid and potentially expired.
  *

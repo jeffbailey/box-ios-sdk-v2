@@ -8,6 +8,7 @@
 
 #import "BoxAPIJSONOperation.h"
 #import "BoxSDKErrors.h"
+#import "BoxLog.h"
 
 #define BOX_API_CONTENT_TYPE_JSON  (@"application/json")
 
@@ -133,9 +134,13 @@
     }
     else
     {
-        if (self.failure)
-        {
-            self.failure(self.APIRequest, self.HTTPResponse, self.error, self.responseJSON);
+        if (self.operationWasReenqueued) {
+            BOXLog(@"Ignoring failure caused by an expired OAuth2 token.  The operation was Re-enqueued.");
+        } else {
+            if (self.failure)
+            {
+                self.failure(self.APIRequest, self.HTTPResponse, self.error, self.responseJSON);
+            }
         }
     }
 }
